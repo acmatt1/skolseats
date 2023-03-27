@@ -4,7 +4,7 @@ session_start();
 
 //CSS
 echo '<head>';
-echo '<center><a href="SkolSeatsHomepage1.php"><img src="SKOLSEATS1.JPG"><center></a><br>';
+echo '<center><a href="SkolSeatsHomepage.php"><img src="SKOLSEATS1.JPG"><center></a><br>';
 echo '<style>';
 echo 'fieldset {
     background-color: #7F00FF;
@@ -75,7 +75,7 @@ echo '</style>';
 echo '</head>';
 
 //Header options
-echo '<body bgcolor="#FFFF00"><p style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; left:8%;"><a href ="SkolSeatsHomepage1.php">Home</a></p>';
+echo '<body bgcolor="#FFFF00"><p style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; left:8%;"><a href ="SkolSeatsHomepage.php">Home</a></p>';
 echo '<p align="left"; style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; left:16%;"><a href ="SkolSignIn.php">Sign In</a></p>';
 echo '<p style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; left:23%"><a href ="https://shop.vikings.com/en/minnesota-vikings/t-47267040+z-9997303-2329085382?_s=gppc&utm_campaign=NFL+-+Minnesota+Vikings+-+Brand+-+US+-+EN|16726709255&utm_medium=ppc&ks_id=6248_kw49762789&utm_term=vikings%20team%20store&matchtype=e&utm_source=g&target=kwd-378011627914&pcrid=590230914159&adposition=">Team Store</a></p>';
 echo '<p align="right"; style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; right: 12%;"><a href ="SkolSeasonTickets.php">Help</a></p>';
