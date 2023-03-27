@@ -4,7 +4,7 @@ session_start();
 
 //CSS
 echo '<head>';
-echo '<center><a href="SkolSeatsHomepage.php"><img src="SKOLSEATS.JPG"><center></a><br>';
+echo '<center><a href="SkolSeatsHomepage.php"><img src="SKOLSEATS1.JPG"><center></a><br>';
 echo '<style>';
 echo 'fieldset {
     background-color: #7F00FF;
