@@ -4,7 +4,7 @@ session_start();
 
 //CSS
 echo '<head>';
-echo '<center><a href="SkolSeatsHomepage.php"><img src="SKOLSEATS.JPG"><center></a><br>';
+echo '<center><a href="SkolSeatsHomepage1.php"><img src="SKOLSEATS.JPG"><center></a><br>';
 echo '<style>';
 echo '#f1 {
     background-color: #7F00FF;
