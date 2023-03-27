@@ -4,7 +4,7 @@ session_start();
 
 //CSS
 echo '<head>';
-echo '<center><a href="SkolSeatsHomepage1.php"><img src="SKOLSEATS1.JPG"><center></a><br>';
+echo '<center><a href="SkolSeatsHomepage.php"><img src="SKOLSEATS1.JPG"><center></a><br>';
 echo '<style>';
 echo 'fieldset {
     background-color: #7F00FF;
@@ -107,7 +107,7 @@ echo 'fieldset {
 echo '</style>';
 echo '</head>';
 //Header options
-echo '<body bgcolor="#FFFF00"><p style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; left:8%;"><a href ="SkolSeatsHomepage1.php">Home</a></p>';
+echo '<body bgcolor="#FFFF00"><p style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; left:8%;"><a href ="SkolSeatsHomepage.php">Home</a></p>';
 echo '<p align="left"; style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; left:15%;"><a href ="SkolSignIn.php">Sign In</a></p>';
 echo '<body bgcolor="#FFFF00"><p style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; left:22%;"><a href ="SkolAccount.php">My Account</a></p>';
 echo '<p align="right"; style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; right: 12%;"><a href ="SkolSeasonTickets.php">Help</a></p>';
