@@ -100,65 +100,55 @@ function createUser($conn, $name, $address, $city, $state, $zip, $phone, $email,
 
 function createTicket($conn, $games, $seats, $qty){
 	
-	$sql = "INSERT INTO ticket (venue_id, opposing_team_id, seat_id, event_date, event_time, ticket_price) VALUES (?,?,?,?,?,?);";
+	$sql = "INSERT INTO ticket (venue_id, opp_team_id, seat_id, event_date, event_time, ticket_price) VALUES (?,?,?,?,?,?);";
 	
 	$venue_id = 1;
-	
-	
-	switch ($games) {
-		case 'patriots':
-			$opposing_team_id = 1;
-			$event_date = '2022-11-24';
-			$event_time = '19:20:00';
-			$venue_id = 1;
-			break;
-		case 'jets':
-			$opposing_team_id = 2;
-			$event_date = '2022-12-04';
-			$event_time = '12:00:00';
-			$venue_id = 1;
-			break;
-		case 'colts':
-			$opposing_team_id = 3;
-			$event_date = '2022-12-17';
-			$event_time = '12:00:00';
-			$venue_id = 1;
-			break;
-		case 'giants':
-			$opposing_team_id = 4;
-			$event_date = '2022-12-24';
-			$event_time = '12:00:00';
-			$venue_id = 1;
-			break;
+	$opponent;
+	$query = "SELECT game_id,game_date,game_time,game_opponent FROM game;";
+	if($r_set=$conn->query($query)){
+		while($row=$r_set->fetch_assoc()){
+			if($row['game_id']==$games){
+				$event_date = $row['game_date'];
+				$event_time = $row['game_time'];
+				$opponent = $row['game_opponent'];
+			}
+		}
 	}
 	
-	switch ($seats) {
-		case '309':
-			$seat_id = '2';
-			$ticket_price = $qty * 34;
-			break;
-		case 'c6':
-			$seat_id = '1';
-			$ticket_price = $qty * 763;
-			break;
-		case 'f5':
-			$seat_id = '3';
-			$ticket_price = $qty * 212;
-			break;
-	}
+	$query2 = "SELECT opp_team_id, opp_team_name FROM team;";
+	if($r_set=$conn->query($query2)){
 
+		while($row=$r_set->fetch_assoc()){
+			if($row['opp_team_name']==$opponent){
+				$opposing_team_id = $row['opp_team_id'];
+			}
+		}
+	}
+	
+	$query3 = "SELECT seat_id, seat_section, seat_number, seat_price FROM seat;";
+	if($r_set=$conn->query($query3)){
+
+		while($row=$r_set->fetch_assoc()){
+			if($row['seat_section']==$seats & $row['seat_number']==$qty){
+				$seat_id = $row['seat_id'];
+				$ticket_price = $row['seat_price'];
+			}
+		}
+	}
+	
+	
 	$stmt = mysqli_stmt_init($conn);
 	if(!mysqli_stmt_prepare($stmt, $sql)) {
 		header("location: .SkolSignIn.php?error=stmtfailed");
 		exit();
 	}
 	
-	mysqli_stmt_bind_param($stmt, "ssssss", $venue_id, $opposing_team_id, $seat_id, $event_date, $event_time, $ticket_price);
+	mysqli_stmt_bind_param($stmt, "iiidds", $venue_id, $opposing_team_id, $seat_id, $event_date, $event_time, $ticket_price);
 	mysqli_stmt_execute($stmt);	
 	mysqli_stmt_close($stmt);
 
 	
-	header("location: SkolSeatsContactInfo.php?error=none");
+	header("location: SkolBillingShipping.php?error=none");
 	
 	exit();
 	

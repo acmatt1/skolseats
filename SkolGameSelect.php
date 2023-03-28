@@ -2,9 +2,11 @@
 
 session_start();
 
+echo'<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.css">';
+
 //CSS
 echo '<head>';
-echo '<center><a href="SkolSeatsHomepage.php"><img src="SKOLSEATS1.JPG"><center></a><br>';
+echo '<center><a href="SkolSeatsHomepage.php"><img src="SKOLSEATS.JPG"><center></a><br>';
 echo '<style>';
 echo 'fieldset {
     background-color: #7F00FF;
@@ -36,7 +38,7 @@ echo 'fieldset {
     font-size: 18px;
     color: #7F00FF;
     position: fixed;
-    left: 43%;
+    left: 55%;
     bottom: 72%;
    }
    #seats {
@@ -44,15 +46,23 @@ echo 'fieldset {
     font-size: 18px;
     color: #7F00FF;
     position: fixed;
-    left: 43%;
+    left: 55%;
     bottom: 66%;
+   }
+   #seatsqty {
+    font-family: Arial;
+    font-size: 18px;
+    color: #7F00FF;
+    position: fixed;
+    left: 55%;
+    bottom: 60%;
    }
    #gamelabel {
     font-family: Arial Black;
     font-size: 20px;
     color: #FFFF00;
     position: fixed;
-    left: 37%;
+    left: 36%;
     bottom: 72%;
    }
    #seatslabel {
@@ -60,8 +70,16 @@ echo 'fieldset {
     color: #FFFF00;
     font-size: 20px;
     position: fixed;
-    left: 37%;
+    left: 36%;
     bottom: 66%;
+   }
+   #seatsqtylabel {
+    font-family: Arial Black;
+    color: #FFFF00;
+    font-size: 20px;
+    position: fixed;
+    left: 36%;
+    bottom: 60%;
    }
    button {
     font-family: Arial Black;
@@ -69,7 +87,7 @@ echo 'fieldset {
     font-size: 24px;
     position: fixed;
     left: 31%;
-    width: 36%;
+    width: 34%;
     bottom: 5%
    }
   ';
@@ -98,6 +116,14 @@ echo '<img src="mascott.jpg" style="width:21%; height:60%; position: fixed; Righ
 require_once 'dbh.inc.php';
 require_once 'functions.inc.php';
 
+if(isset($_SESSION["username"])) {
+	$userAccount = uidExists($conn, $_SESSION["username"], $_SESSION["username"]);
+}
+else{
+	header("location: SkolSignIn.php");
+	exit();
+}
+
 $query = "SELECT game_id,game_date,game_opponent FROM game;";
 echo '<center><form action="SkolGameSelect.inc.php" method="post"><fieldset>
 <legend>Game Selection</legend>
@@ -107,42 +133,39 @@ if($r_set=$conn->query($query)){
 }
 
 while($row=$r_set->fetch_assoc()){
-	echo "<option value=$row[game_id]>($row[game_id]) $row[game_date] $row[game_opponent]</option>";
+	echo "<option value=$row[game_id]>$row[game_date] vs. $row[game_opponent]</option>";
 }
-
-
-echo '</select>
-<br><br>';
+echo '</select>';
 
 
 $query2 = "SELECT DISTINCT seat_row,seat_section FROM seat;";
-echo '<br><label for="seats" id="seatslabel">Seat:</label>';
+echo '<br><label for="seats" id="seatslabel">Seat row:</label>';
 if($r_set=$conn->query($query2)){
-	echo "<SELECT id=s2 onChange='reload()' name=seats class='form-control' style='width:200px;'>";
+	echo "<SELECT id=s2 name=seats class='form-control' style='width:200px;'>";
 }
 
 while($row=$r_set->fetch_assoc()){
 	echo "<option value=$row[seat_section]>Section $row[seat_section] Row $row[seat_row] </option>";
 }
-echo '
-</select>
-<br><br>
+echo '</select>';
+
+$query3 = "SELECT DISTINCT seat_number FROM seat;";
+echo '<br><label for="seatsqty" id="seatsqtylabel">Seats:</label>';
+if($r_set=$conn->query($query3)){
+	echo "<SELECT id=s3 name=seatsqty class='form-control' multiple style='width:200px;'>";
+}
+
+while($row=$r_set->fetch_assoc()){
+	echo "<option value=$row[seat_number]>Seat $row[seat_number] </option>";
+}
+echo '</select>';
 
 
-<label for="qty" id="qty">Quantity:</label>
-<input type="text" id="qty" name="qty" maxlength="3" size="3" ><br><br><br>
-</select>
-<img src="seatingchart.jpg" style="width:25%; height:45%; position: fixed; Right:38%; bottom:16%;">
-<button type="submit" name="submit">Proceed to Contact Information</button>
+echo '<img src="seatingchart.jpg" style="width:25%; height:45%; position: fixed; Right:39%; bottom:12%;">
+<button type="submit" name="submit">Proceed</button>
 </fieldset>
 </form> 
 </center>';
-
-function reload(){
-	$v1 = $_POST["s1"];
-	header("location: SkolGameSelect.php?cat=" + v1);
-}
-
 
 echo '<center><a href="https://www.amazon.com/Nope-Daniel-Kaluuya/dp/B0B75YBMDK/ref=asc_df_B0B75YBMDK/?tag=hyprod-20&linkCode=df0&hvadid=598270499740&hvpos=&hvnetw=g&hvrand=11545977362221648762&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9019697&hvtargid=pla-1712922598227&psc=1"><img src="ad.jpg" style="width:350px; height:75px;></a></center>';
 echo '<br>';
