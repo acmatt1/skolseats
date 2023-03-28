@@ -296,7 +296,7 @@ echo '<center><form action="SkolPayment.php" method="POST">
 <label for="fnamelabel2" id= "fnamelabel2">First name:</label>
 <input type="text" id="fname2" name="fname2" maxlength="16" size="16">
 
-<label for="lnamelabel" id= "lnamelabel2">Last name:</label>
+<label for="lnamelabe2" id= "lnamelabel2">Last name:</label>
 <input type="text" id="lname2" name="lname2" maxlength="16" size="16">
 
 <label for="addresslabel2" id= "addresslabel2">Address:</label>
