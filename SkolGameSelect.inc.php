@@ -1,21 +1,23 @@
 <?php
 
-if (isset($_POST["submit"])) {
+session_start();
+
+if (isset($_POST["proceed"])) {
 
 	$game = $_POST["games"];
-	$seats = $_POST["seats"];
-	$qty = $_POST["seatsqty"];
+	$seat_row = $_POST["seatsrow"];
+	$seat_number = $_POST["seatnumber"];
 
 	
 	require_once 'dbh.inc.php';
 	require_once 'functions.inc.php';
 	
-	if (!$qty||!$game||!$seats) {
+	if (!$game||!$seat_row||!$seat_number) {
 		header("location: SkolGameSelect.php?error=emptyinput");
 		exit();
 	}
 	
-	createTicket($conn, $game, $seats, $qty);
+	createTicketVariables($conn, $game, $seat_row, $seat_number);
 	
 	
 }

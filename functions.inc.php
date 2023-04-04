@@ -98,55 +98,43 @@ function createUser($conn, $name, $address, $city, $state, $zip, $phone, $email,
 	
 }
 
-function createTicket($conn, $games, $seats, $qty){
+function createTicket($conn, $ticket_venue, $ticket_game, $ticket_customer, $ticket_seat){
 	
-	$sql = "INSERT INTO ticket (venue_id, opp_team_id, seat_id, event_date, event_time, ticket_price) VALUES (?,?,?,?,?,?);";
-	
-	$venue_id = 1;
-	$opponent;
-	$query = "SELECT game_id,game_date,game_time,game_opponent FROM game;";
-	if($r_set=$conn->query($query)){
-		while($row=$r_set->fetch_assoc()){
-			if($row['game_id']==$games){
-				$event_date = $row['game_date'];
-				$event_time = $row['game_time'];
-				$opponent = $row['game_opponent'];
-			}
-		}
-	}
-	
-	$query2 = "SELECT opp_team_id, opp_team_name FROM team;";
-	if($r_set=$conn->query($query2)){
-
-		while($row=$r_set->fetch_assoc()){
-			if($row['opp_team_name']==$opponent){
-				$opposing_team_id = $row['opp_team_id'];
-			}
-		}
-	}
-	
-	$query3 = "SELECT seat_id, seat_section, seat_number, seat_price FROM seat;";
-	if($r_set=$conn->query($query3)){
-
-		while($row=$r_set->fetch_assoc()){
-			if($row['seat_section']==$seats & $row['seat_number']==$qty){
-				$seat_id = $row['seat_id'];
-				$ticket_price = $row['seat_price'];
-			}
-		}
-	}
-	
+	$sql = "INSERT INTO ticket (venue_id, customer_id, game_id, seat_id) VALUES (?,?,?,?);";
 	
 	$stmt = mysqli_stmt_init($conn);
 	if(!mysqli_stmt_prepare($stmt, $sql)) {
-		header("location: .SkolSignIn.php?error=stmtfailed");
+		header("location: .SkolAccount.php?error=orderfailed");
 		exit();
 	}
 	
-	mysqli_stmt_bind_param($stmt, "iiidds", $venue_id, $opposing_team_id, $seat_id, $event_date, $event_time, $ticket_price);
+	mysqli_stmt_bind_param($stmt, "iiii", $ticket_venue, $ticket_game, $ticket_customer, $ticket_seat);
 	mysqli_stmt_execute($stmt);	
 	mysqli_stmt_close($stmt);
 
+	
+	header("location: SkolConfirmation.php?error=none");
+	
+	exit();
+	
+}
+
+function createTicketVariables($conn, $game, $seatrow, $seatnumber){
+		
+	$_SESSION["ticket_venue"] = 1;
+	
+	$userAccount = uidExists($conn, $_SESSION["username"], $_SESSION["username"]);
+	$_SESSION["ticket_customer"] = $userAccount['cust_id'];
+	
+	$_SESSION["ticket_game"] = $game;
+	
+	$query = "SELECT seat_id, seat_row, seat_number FROM seat WHERE seat_row = '".$seatrow."' AND seat_number = '".$seatnumber."';";
+	if($r_set=$conn->query($query)){
+		while($row=$r_set->fetch_assoc()){
+			$_SESSION["ticket_seat"] = $row['seat_id'];
+		}
+	}
+	
 	
 	header("location: SkolBillingShipping.php?error=none");
 	
@@ -221,6 +209,7 @@ function updateTicket($conn, $order_id, $ticket_id){
 	
 }
 
+
 function createOrder($conn, $cust_id, $ticket_id, $order_price, $order_date) {
 	
 	static $count = '0';
@@ -239,30 +228,6 @@ function createOrder($conn, $cust_id, $ticket_id, $order_price, $order_date) {
 	header("location: SkolConfirmation.php?error=none");
 
 }
-
-/*function getTicketsForUser($conn, $cust_id){
-	$sql = "SELECT * from ticket where ticket_id IN (SELECT ticket_id FROM purchaseorder WHERE cust_id = ?);";
-	$stmt = mysqli_stmt_init($conn);
-	if(!mysqli_stmt_prepare($stmt, $sql)) {
-		header("location: .SkolSignIn.php?error=stmtfailed");
-		exit();
-	}
-	
-	mysqli_stmt_bind_param($stmt, "s", $cust_id);
-	mysqli_stmt_execute($stmt);
-	
-	$resultData = mysqli_stmt_get_result($stmt);
-
-	
-	if($rows = mysqli_fetch_all($resultData)) {
-		return $rows;
-	}
-	else {
-		$result = false;
-		return $result;
-	}
-	
-}*/
 
 function updateUser($conn, $name, $address, $city, $state, $zip, $phone, $email, $password) {
 	

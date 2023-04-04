@@ -2,7 +2,7 @@
 
 session_start();
 
-if (isset($_POST["submit"])) {
+if (isset($_POST["signin"])) {
 	$username = $_POST["username"];
 	$password = $_POST["password"];
 	
