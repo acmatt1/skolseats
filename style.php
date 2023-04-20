@@ -135,6 +135,33 @@ label {
     width: 15%;
     bottom: 5%
    }
+#editUser {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 32%;
+    width: 15%;
+    bottom: 10%
+   }
+#deleteUser {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 50%;
+    width: 15%;
+    bottom: 10%
+   }
+#toAdmin {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 32%;
+    width: 15%;
+    bottom: 5%
+   }
 #previous {
     font-family: Arial Black;
     color: #7F00FF;
@@ -152,6 +179,101 @@ label {
     left: 50%;
     width: 15%;
     bottom: 5%
+   }
+#userlookup {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 33%;
+    width: 14%;
+    bottom: 65%
+   }
+#lookup {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 50%;
+    width: 14%;
+    bottom: 65%
+   }
+#ticketGameLabel {
+    font-family: Arial Black;
+    color: #FFFF00;
+    font-size: 16px;
+    position: fixed;
+    right: 52%;
+    bottom: 50%
+   }
+#ticketSectionLabel {
+    font-family: Arial Black;
+    color: #FFFF00;
+    font-size: 16px;
+    position: fixed;
+    right: 52%;
+    bottom: 45%
+   }
+#ticketRowLabel {
+    font-family: Arial Black;
+    color: #FFFF00;
+    font-size: 16px;
+    position: fixed;
+    right: 52%;
+    bottom: 40%
+   }
+#ticketSeatLabel {
+    font-family: Arial Black;
+    color: #FFFF00;
+    font-size: 16px;
+    position: fixed;
+    right: 52%;
+    bottom: 35%
+   }
+#ticketGame {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 50%;
+    width: 11%;
+    bottom: 50%
+   }
+#ticketSection {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 50%;
+    width: 11%;
+    bottom: 45%
+   }
+#ticketRow {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 50%;
+    width: 11%;
+    bottom: 40%
+   }
+#ticketSeat {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 50%;
+    width: 11%;
+    bottom: 35%
+   }
+#ticketAssign {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 42%;
+    width: 13%;
+    bottom: 30%
    }
 #f1 {
     background-color: #7F00FF;
@@ -424,6 +546,14 @@ label {
     position: fixed;
     left: 58%;
     bottom: 30%;
+   }
+   #total{
+    font-family: Arial Black;
+    color: #FFFF00;
+    font-size: 26px;
+    position: fixed;
+    left: 32%;
+    bottom: 16%;
    }
    #visalabel{
     font-family: Arial Black;

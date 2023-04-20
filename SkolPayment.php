@@ -59,7 +59,10 @@ else{
 <input type="text" id="expiry" name="expiry" maxlength="5" size="5" placeholder="MM/YY">
 
 <label for="cvvlabel" id= "cvvlabel">CVV:</label>
-<input type="text" id="cvv" name="cvv" maxlength="4" size="4">
+<input type="text" id="cvv" name="cvv" maxlength="4" size="14">
+
+<label for="total" id="total">Total cost: $<?php echo $_SESSION['ticket_cost']?></label>
+
 
 <button type="submit" id="submit">Confirm Purchase</button>
 <button type="submit" id="previous" formaction="SkolBillingShipping.php">Previous Page</button>

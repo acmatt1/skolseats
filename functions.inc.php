@@ -88,6 +88,10 @@ function uidExists($conn, $username, $email) {
 	mysqli_stmt_close($stmt);
 }
 
+
+	
+	
+
 function createUser($conn, $name, $address, $city, $state, $zip, $phone, $email, $username, $password) {
 	
 	$sql = "INSERT INTO customer (cust_name, cust_address, cust_city, cust_state, cust_zip, cust_phone, cust_email, cust_username, cust_userpass) VALUES (?,?,?,?,?,?,?,?,?);";
@@ -131,7 +135,7 @@ function assignTicket($conn, $ticket_venue, $ticket_game, $ticket_customer, $tic
 	
 }
 
-function createTicketVariables($conn, $game, $seatrow, $seatnumber){
+function createTicketVariables($conn, $game, $seat_id){
 		
 	$_SESSION["ticket_venue"] = 1;
 	
@@ -140,10 +144,12 @@ function createTicketVariables($conn, $game, $seatrow, $seatnumber){
 	
 	$_SESSION["ticket_game"] = $game;
 	
-	$query = "SELECT seat_id, seat_row, seat_number FROM seat WHERE seat_row = '".$seatrow."' AND seat_number = '".$seatnumber."';";
+	$query = "SELECT seat_id, seat_price FROM seat WHERE seat_id = '".$seat_id."';";
 	if($r_set=$conn->query($query)){
 		while($row=$r_set->fetch_assoc()){
 			$_SESSION["ticket_seat"] = $row['seat_id'];
+			$_SESSION["ticket_cost"] = $row['seat_price'];
+			var_dump($_SESSION['ticket_cost']);
 		}
 	}
 	
@@ -366,6 +372,131 @@ function updateUser($conn, $name, $address, $city, $state, $zip, $phone, $email,
 	exit();
 }
 
+function updateRemoteUser($conn, $name, $address, $city, $state, $zip, $phone, $email, $password) {
+	
+	if(isset($_SESSION["userLookup"])) {
+		$userAccount = uidExists($conn, $_SESSION["userLookup"], $_SESSION["userLookup"]);
+	}
+	$sql = "";
+	
+	$hashedpwd = PASSWORD_HASH($password, PASSWORD_DEFAULT);
+	
+	if($name) {
+		$sql = "UPDATE customer SET cust_name = ? WHERE cust_id = ?;";
+		$stmt = mysqli_stmt_init($conn);
+		if(!mysqli_stmt_prepare($stmt, $sql)) {
+			header("location: .SkolSignIn.php?error=stmtfailed");
+			exit();
+	
+		}
+		//$column = "customer_name";
+		//mysqli_stmt_bind_param($stmt, "sss", $column, $name, $userAccount["cust_id"]);
+		mysqli_stmt_bind_param($stmt, "ss", $name, $userAccount["cust_id"]);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_close($stmt);
+	}
+	if($address) {
+		$sql = "UPDATE customer SET cust_address = ? WHERE cust_id = ?;";
+		$stmt = mysqli_stmt_init($conn);
+		if(!mysqli_stmt_prepare($stmt, $sql)) {
+			header("location: .SkolSignIn.php?error=stmtfailed");
+			exit();
+	
+		}
+		
+		mysqli_stmt_bind_param($stmt, "ss", $address, $userAccount["cust_id"]);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_close($stmt);
+	}
+	if($city) {
+		$sql = "UPDATE customer SET cust_city = ? WHERE cust_id = ?;";
+		$stmt = mysqli_stmt_init($conn);
+		if(!mysqli_stmt_prepare($stmt, $sql)) {
+			header("location: .SkolSignIn.php?error=stmtfailed");
+			exit();
+	
+		}
+		
+		mysqli_stmt_bind_param($stmt, "ss", $city, $userAccount["cust_id"]);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_close($stmt);
+	}
+	if($state) {
+		$sql = "UPDATE customer SET cust_state = ? WHERE cust_id = ?;";
+		$stmt = mysqli_stmt_init($conn);
+		if(!mysqli_stmt_prepare($stmt, $sql)) {
+			header("location: .SkolSignIn.php?error=stmtfailed");
+			exit();
+	
+		}
+		
+		mysqli_stmt_bind_param($stmt, "ss", $state, $userAccount["cust_id"]);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_close($stmt);
+	}
+	if($zip) {
+		$sql = "UPDATE customer SET cust_zip = ? WHERE cust_id = ?;";
+		$stmt = mysqli_stmt_init($conn);
+		if(!mysqli_stmt_prepare($stmt, $sql)) {
+			header("location: .SkolSignIn.php?error=stmtfailed");
+			exit();
+	
+		}
+		
+		mysqli_stmt_bind_param($stmt, "ss", $zip, $userAccount["cust_id"]);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_close($stmt);
+	}
+	if($phone) {
+		$sql = "UPDATE customer SET cust_phone = ? WHERE cust_id = ?;";
+		$stmt = mysqli_stmt_init($conn);
+		if(!mysqli_stmt_prepare($stmt, $sql)) {
+			header("location: .SkolSignIn.php?error=stmtfailed");
+			exit();
+	
+		}
+		
+		mysqli_stmt_bind_param($stmt, "ss", $phone, $userAccount["cust_id"]);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_close($stmt);
+	}
+	if($email) {
+		if (invalidEmail($email) !== false) {
+			header("location: SkolUpdate.php?error=invalidemail");
+			exit();
+		}
+		else{
+			$sql = "UPDATE customer SET cust_email = ? WHERE cust_id = ?;";
+			$stmt = mysqli_stmt_init($conn);
+			if(!mysqli_stmt_prepare($stmt, $sql)) {
+				header("location: .SkolSignIn.php?error=stmtfailed");
+				exit();
+			}
+	
+		
+			mysqli_stmt_bind_param($stmt, "ss", $email, $userAccount["cust_id"]);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_close($stmt);
+		}
+	}
+	if($password) {
+		$sql = "UPDATE customer SET cust_userpass = ? WHERE cust_id = ?;";
+		$stmt = mysqli_stmt_init($conn);
+		if(!mysqli_stmt_prepare($stmt, $sql)) {
+			header("location: .SkolSignIn.php?error=stmtfailed");
+			exit();
+	
+		}
+		
+		mysqli_stmt_bind_param($stmt, "ss", $hashedpwd, $userAccount["cust_id"]);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_close($stmt);
+	}
+	
+	header("location: SkolAccount.php");
+	exit();
+}
+
 function loginUser($conn, $username, $pwd) {
 	$uidExists = uidExists($conn, $username, $username);
 	
@@ -391,5 +522,19 @@ function loginUser($conn, $username, $pwd) {
 		exit();
 	}
 	
+}
+	
+function lookup_user($conn, $username){
+	$uidExists = uidExists($conn, $username, $username);
+	
+	if ($uidExists === false) {
+		header("location: SkolAdmin.php?error=userdoesnotexist");
+		exit();
+	}
+	
+	session_start();
+	$_SESSION["userLookup"] = $uidExists["cust_username"];
+	header("location: SkolAccountLookup.php");
+	exit();
 }
 	
