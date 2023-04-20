@@ -14,7 +14,7 @@ if(isset($_POST['game_id'])){
 	if($seatrows != NULL){
 		echo '<option value="">--Select Row--</option>';
 		foreach($seatrows as $seatrow){
-			echo '<option value="'.$seatrow['seat_row'].'">'.$seatrow['seat_row'].'</option>';
+			echo '<option value="'.$seatrow['seat_row'].'">Section '.$seatrow['seat_section'].' Row '.$seatrow['seat_row'].'</option>';
 		}
 	}
 	else{
