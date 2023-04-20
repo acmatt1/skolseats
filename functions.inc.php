@@ -112,6 +112,25 @@ function createUser($conn, $name, $address, $city, $state, $zip, $phone, $email,
 	
 }
 
+function delete_user($conn, $accountToDelete) {
+	$sql = "DELETE FROM customer WHERE cust_username = ?;";
+	var_dump($accountToDelete);
+	
+	$stmt = mysqli_stmt_init($conn);
+	if(!mysqli_stmt_prepare($stmt, $sql)) {
+		header("location: .SkolSignIn.php?error=stmtfailed");
+		exit();
+	}
+	
+	mysqli_stmt_bind_param($stmt, "s", $accountToDelete);
+	
+	mysqli_stmt_execute($stmt);
+	mysqli_stmt_close($stmt);
+	header("location: SkolAdmin.php?error=none");
+	exit();
+	
+}
+
 function assignTicket($conn, $ticket_venue, $ticket_game, $ticket_customer, $ticket_seat){
 	
 	$sql = "UPDATE ticket SET customer_id = ? WHERE venue_id = ? AND game_id = ? AND seat_id = ?;";

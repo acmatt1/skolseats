@@ -189,7 +189,25 @@ label {
     width: 14%;
     bottom: 65%
    }
+#deletePwd {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 33%;
+    width: 14%;
+    bottom: 65%
+   }
 #lookup {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 50%;
+    width: 14%;
+    bottom: 65%
+   }
+#delete {
     font-family: Arial Black;
     color: #7F00FF;
     font-size: 16px;
