@@ -1,5 +1,15 @@
 <?php
 
+function getRows($conn,$query,$params=[]){
+		$stmt = $conn->prepare($query);
+		$stmt->execute($params);
+		$resultSet = $stmt->get_result();
+		$data = $resultSet->fetch_all(MYSQLI_ASSOC);
+		
+		return $data;
+	}
+	
+
 function emptyInputSignup($name, $address, $city, $state, $zip, $phone, $email, $username, $password, $password2) {
 	
 	$result;
@@ -98,9 +108,9 @@ function createUser($conn, $name, $address, $city, $state, $zip, $phone, $email,
 	
 }
 
-function createTicket($conn, $ticket_venue, $ticket_game, $ticket_customer, $ticket_seat){
+function assignTicket($conn, $ticket_venue, $ticket_game, $ticket_customer, $ticket_seat){
 	
-	$sql = "INSERT INTO ticket (venue_id, customer_id, game_id, seat_id) VALUES (?,?,?,?);";
+	$sql = "UPDATE ticket SET customer_id = ? WHERE venue_id = ? AND game_id = ? AND seat_id = ?;";
 	
 	$stmt = mysqli_stmt_init($conn);
 	if(!mysqli_stmt_prepare($stmt, $sql)) {
@@ -108,10 +118,12 @@ function createTicket($conn, $ticket_venue, $ticket_game, $ticket_customer, $tic
 		exit();
 	}
 	
-	mysqli_stmt_bind_param($stmt, "iiii", $ticket_venue, $ticket_game, $ticket_customer, $ticket_seat);
+	mysqli_stmt_bind_param($stmt, "iiii", $ticket_customer, $ticket_venue, $ticket_game, $ticket_seat);
 	mysqli_stmt_execute($stmt);	
 	mysqli_stmt_close($stmt);
 
+
+	
 	
 	header("location: SkolConfirmation.php?error=none");
 	
