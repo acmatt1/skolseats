@@ -63,29 +63,29 @@ echo 'fieldset {
    }
   legend {
     background-color: #FFFF00; 
-    font-family: Bahnschrift;
+    font-family: Arial Black;
     color: #7F00FF;
     font-size: 24px;
    }
    input{
-    font-family: Bahnschrift;
+    font-family: Arial Black;
    }
    #games {
-    font-family: Bahnschrift;
+    font-family: Arial Black;
     font-size: 18px;
     color: #7F00FF;
     position: fixed;
     left: 44%;
    }
    #seats {
-    font-family: Bahnschrift;
+    font-family: Arial Black;
     font-size: 18px;
     color: #7F00FF;
     position: fixed;
     left: 44%;
    }
    #gamelabel {
-    font-family: Bahnschrift;
+    font-family: Arial Black;
     font-size: 24px;
     color: #7F00FF;
     position: fixed;
@@ -93,14 +93,14 @@ echo 'fieldset {
     bottom: 25%;
    }
    #seatslabel {
-    font-family: Bahnschrift;
+    font-family: Airal Black;
     color: #FFFF00;
     font-size: 24px;
     position: fixed;
     left: 39%;
    }
    button {
-    font-family: Bahnschrift;
+    font-family: Arial Black;
     color: #7F00FF;
     font-size: 24px;
     position: fixed;
@@ -109,7 +109,7 @@ echo 'fieldset {
     bottom: 5%
    }
    #submit {
-    font-family: Bahnschrift;
+    font-family: Arial Black;
     color: #7F00FF;
     font-size: 18px;
     position: fixed;
@@ -118,7 +118,7 @@ echo 'fieldset {
     bottom: 5%
    }
    #previous {
-    font-family: Bahnschrift;
+    font-family: Arial Black;
     color: #7F00FF;
     font-size: 18px;
     position: fixed;
@@ -130,17 +130,17 @@ echo 'fieldset {
 echo '</style>';
 echo '</head>';
 //Header options
-echo '<body bgcolor="#FFFF00"><p style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; left:8%;"><a href ="SkolSeatsHomepage.php">Home</a></p>';
+echo '<body bgcolor="#FFFF00"><p style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; left:8%;"><a href ="SkolSeatsHomepage.php">Home</a></p>';
 if(isset($_SESSION["userid"])) {
-	echo '<p align="left"; style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; left:15%;"><a href ="SkolSignOut.php">Sign Out</a></p>';
+	echo '<p align="left"; style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; left:15%;"><a href ="SkolSignOut.php">Sign Out</a></p>';
 }
 else{
-	echo '<p align="left"; style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; left:15%;"><a href ="SkolSignIn.php">Sign In</a></p>';
+	echo '<p align="left"; style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; left:15%;"><a href ="SkolSignIn.php">Sign In</a></p>';
 }
-echo '<body bgcolor="#FFFF00"><p style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; left:22%;"><a href ="SkolAccount.php">My Account</a></p>';
-echo '<p align="right"; style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; right: 12%;"><a href ="SkolSeasonTickets.php">Help</a></p>';
-echo '<p align="right"; style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; right: 18%;"><a href ="https://shop.vikings.com/en/minnesota-vikings/t-47267040+z-9997303-2329085382?_s=gppc&utm_campaign=NFL+-+Minnesota+Vikings+-+Brand+-+US+-+EN|16726709255&utm_medium=ppc&ks_id=6248_kw49762789&utm_term=vikings%20team%20store&matchtype=e&utm_source=g&target=kwd-378011627914&pcrid=590230914159&adposition=">Team Store</a></p>';
-echo '<p align="right"; style="display:inline-block; font-family:Bahnschrift; color:purple; position: fixed; right: 27%;"><a href ="SkolGameSelect.php">Buy</a></p>';
+echo '<body bgcolor="#FFFF00"><p style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; left:22%;"><a href ="SkolAccount.php">My Account</a></p>';
+echo '<p align="right"; style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; right: 12%;"><a href ="SkolSeasonTickets.php">Help</a></p>';
+echo '<p align="right"; style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; right: 18%;"><a href ="https://shop.vikings.com/en/minnesota-vikings/t-47267040+z-9997303-2329085382?_s=gppc&utm_campaign=NFL+-+Minnesota+Vikings+-+Brand+-+US+-+EN|16726709255&utm_medium=ppc&ks_id=6248_kw49762789&utm_term=vikings%20team%20store&matchtype=e&utm_source=g&target=kwd-378011627914&pcrid=590230914159&adposition=">Team Store</a></p>';
+echo '<p align="right"; style="display:inline-block; font-family:Arial Black; color:purple; position: fixed; right: 27%;"><a href ="SkolGameSelect.php">Buy</a></p>';
 
 
 //Body Images
