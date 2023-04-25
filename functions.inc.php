@@ -133,17 +133,20 @@ function delete_user($conn, $accountToDelete) {
 
 function assignTicket($conn, $ticket_venue, $ticket_game, $ticket_customer, $ticket_seat){
 	
-	$sql = "UPDATE ticket SET customer_id = ? WHERE venue_id = ? AND game_id = ? AND seat_id = ?;";
 	
-	$stmt = mysqli_stmt_init($conn);
-	if(!mysqli_stmt_prepare($stmt, $sql)) {
-		header("location: .SkolAccount.php?error=orderfailed");
-		exit();
+	for($x=0; $x < sizeof($ticket_seat); $x++){
+		$sql = "UPDATE ticket SET customer_id = ? WHERE venue_id = ? AND game_id = ? AND seat_id = ?;";
+		
+		$stmt = mysqli_stmt_init($conn);
+		if(!mysqli_stmt_prepare($stmt, $sql)) {
+			header("location: .SkolAccount.php?error=orderfailed");
+			exit();
+		}
+		
+		mysqli_stmt_bind_param($stmt, "iiii", $ticket_customer, $ticket_venue, $ticket_game, $ticket_seat[$x]);
+		mysqli_stmt_execute($stmt);	
+		mysqli_stmt_close($stmt);
 	}
-	
-	mysqli_stmt_bind_param($stmt, "iiii", $ticket_customer, $ticket_venue, $ticket_game, $ticket_seat);
-	mysqli_stmt_execute($stmt);	
-	mysqli_stmt_close($stmt);
 
 
 	
@@ -154,7 +157,36 @@ function assignTicket($conn, $ticket_venue, $ticket_game, $ticket_customer, $tic
 	
 }
 
-function createTicketVariables($conn, $game, $seat_id){
+function assignTicketToUser($conn, $ticket, $customer){
+	
+	$query = "SELECT cust_id, cust_username FROM customer WHERE cust_username = '".$customer."';";
+	
+	if($r_set=$conn->query($query)){
+		while($row=$r_set->fetch_assoc()){
+			$customer_id = $row['cust_id'];
+		}
+	}
+	
+	
+	$sql = "UPDATE ticket SET customer_id = ? WHERE ticket_id = ?;";
+	
+	$stmt = mysqli_stmt_init($conn);
+	if(!mysqli_stmt_prepare($stmt, $sql)) {
+		header("location: .SkolAccount.php?error=orderfailed");
+		exit();
+	}
+	
+	mysqli_stmt_bind_param($stmt, "ii", $customer_id, $ticket);
+	mysqli_stmt_execute($stmt);	
+	mysqli_stmt_close($stmt);	
+	
+	header("location: SkolAdmin.php?error=none");
+	
+	exit();
+	
+}
+
+function createTicketVariables($conn, $game, array $seat_id){
 		
 	$_SESSION["ticket_venue"] = 1;
 	
@@ -163,16 +195,21 @@ function createTicketVariables($conn, $game, $seat_id){
 	
 	$_SESSION["ticket_game"] = $game;
 	
-	$query = "SELECT seat_id, seat_price FROM seat WHERE seat_id = '".$seat_id."';";
-	if($r_set=$conn->query($query)){
-		while($row=$r_set->fetch_assoc()){
-			$_SESSION["ticket_seat"] = $row['seat_id'];
-			$_SESSION["ticket_cost"] = $row['seat_price'];
-			var_dump($_SESSION['ticket_cost']);
+	unset($_SESSION['ticket_cost']);
+	unset($_SESSION['ticket_seat']);
+	$_SESSION['ticket_seat']=[];
+	
+	var_dump($seat_id);
+	for($x=0; $x < sizeof($seat_id); $x++){
+		$query = "SELECT seat_id, seat_price FROM seat WHERE seat_id = '".$seat_id[$x]."';";
+		if($r_set=$conn->query($query)){
+			while($row=$r_set->fetch_assoc()){
+				array_push($_SESSION['ticket_seat'], $row['seat_id']);
+				$_SESSION["ticket_cost"] += $row['seat_price'];
+			}
 		}
 	}
-	
-	
+		
 	header("location: SkolBillingShipping.php?error=none");
 	
 	exit();

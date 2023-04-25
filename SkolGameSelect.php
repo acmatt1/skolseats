@@ -85,8 +85,8 @@ else{
 	</select>
 <br><br>
 <label for="seatnumber" id="seatnumberlabel">Seats:</label>
-	<select name="seatnumber" id="seatnumber">
-	  <option value=''>Select a seat</option>
+	<select name="seatnumber[]"  multiple="multiple" size="3" id="seatnumber">
+	  <!--<option value=''>Select a seat</option>-->
 		<?php
 		foreach($seatnumbers as $seatnumber){
 		  
@@ -97,7 +97,7 @@ else{
 	</select>
 
 
-<img src="seatingchart.jpg" style="width:25%; height:45%; position: fixed; Right:39%; bottom:12%;">
+<img src="seatingchart.jpg" style="width:25%; height:40%; position: fixed; Right:39%; bottom:12%;">
 <button type="submit" name="proceed" id="proceed">Proceed</button>
 </fieldset>
 </form> 

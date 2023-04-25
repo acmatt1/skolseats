@@ -54,22 +54,41 @@ else{
 
 
 <center><fieldset>
-<legend>My Tickets</legend><br>
+<legend>Assign Ticket</legend><br>
 
 <?php
 
-$query = "SELECT ticket.customer_id, ticket.seat_id, seat.seat_section, seat.seat_row, seat.seat_number, games.game_date, team.opp_team_name FROM ticket INNER JOIN games ON ticket.game_id = games.game_id INNER JOIN team ON games.game_opponent = team.opp_team_id inner join seat on ticket.seat_id = seat.seat_id WHERE customer_id = '$userAccount[cust_id]';";
-
-if($r_set=$conn->query($query)){
-	while($row=$r_set->fetch_assoc()){
-		echo "<h2>$row[game_date] vs. $row[opp_team_name]: Section $row[seat_section] Row $row[seat_row] Seat $row[seat_number]<h2><br>";
+	$ticketGame = $_POST["ticketGame"];
+	$ticketSection = $_POST["ticketSection"];
+	$ticketRow = $_POST["ticketRow"];
+	$ticketSeat = $_POST["ticketSeat"];
+	
+	$query = "SELECT ticket.customer_id, customer.cust_username, ticket.seat_id, ticket.ticket_id, seat.seat_number, seat.seat_section, seat.seat_row, games.game_date, team.opp_team_name FROM ticket LEFT JOIN customer ON ticket.customer_id = customer.cust_id INNER JOIN games ON ticket.game_id = games.game_id INNER JOIN team ON games.game_opponent = team.opp_team_id inner join seat on ticket.seat_id = seat.seat_id WHERE team.opp_team_name = '".$ticketGame."' AND seat.seat_section = '".$ticketSection."' AND seat.seat_row = '".$ticketRow."' AND seat.seat_number = '".$ticketSeat."';";
+	
+	if($r_set=$conn->query($query)){
+		while($row=$r_set->fetch_assoc()){
+			echo "<h2>$row[game_date] vs. $row[opp_team_name]: Seat $row[seat_number]<h2><br>";
+			if($row['cust_username'])
+				echo "<h2>Currently assigned to $row[cust_username]";
+			else
+				echo "Currently unassigned.";
+			$_SESSION['ticket_id'] = $row['ticket_id'];
+		}
 	}
-}
-echo '</select>';
+	
+
+	
+	echo '</select>';
 ?>
 
+<br><br><br><h2>Reassign to username:
+<center><form action="SkolTicketAssign.inc.php" method="post">
+<input type="text" id="ticketReassign" name="ticketReassign" maxlength="15" size="15">
+<button type="submit" name="reassign" id="reassign">Assign ticket</button>
+</form> 
 
-<center><form action="SkolAccount.php" method="POST">
+
+<center><form action="SkolAdmin.php" method="POST">
 <button type="submit" name="submit" id="editinfo">Back</button>
 </form>
 

@@ -64,6 +64,7 @@ else{
 <input type="text" id="userLookup" name="userLookup" maxlength="15" size="15">
 <button type="submit" name="lookup" id="lookup">Find User</button>
 </form> 
+<center><form action="SkolTicketAssign.php" method="post">
 </p><br><br><h2>Assign tickets
 <div id= "ticketGameLabel">Opponent:</div>
 <div id= "ticketSectionLabel">Section:</div>

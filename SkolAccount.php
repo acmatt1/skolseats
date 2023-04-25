@@ -72,13 +72,18 @@ echo "</p><h2>Username: " , $userAccount["cust_username"];
 
 
 
-
-<center><form action="SkolTickets.php" method="POST">
-<button type="submit" name="submit" id="mytix">My Tickets</button>
-</form> 
-
-
-
+<?php
+if($userAccount['is_admin']=='0'){
+	echo '<center><form action="SkolTickets.php" method="POST">';
+	echo '<button type="submit" name="submit" id="mytix">My Tickets</button>';
+	echo '</form>';
+}
+else if($userAccount['is_admin']=='1'){
+	echo '<center><form action="SkolAdmin.php" method="POST">';
+	echo '<button type="submit" name="submit" id="mytix">Admin Portal</button>';
+	echo '</form>';
+}
+?>
 
 <center><form action="SkolUpdate.php" method="POST">
 <button type="submit" name="submit" id="editinfo">Edit Info</button>

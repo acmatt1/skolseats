@@ -100,8 +100,16 @@ label {
     color: #7F00FF;
     position: fixed;
     left: 49%;
-    bottom: 60%;
+    bottom: 55%;
    }
+.selectpicker {
+    font-family: Arial;
+    font-size: 18px;
+    color: #7F00FF;
+    position: fixed;
+    left: 49%;
+    bottom: 60%;
+}
 #gamelabel {
     font-family: Arial Black;
     font-size: 20px;
@@ -189,6 +197,15 @@ label {
     width: 14%;
     bottom: 65%
    }
+#ticketReassign {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 33%;
+    width: 14%;
+    bottom: 43%
+   }
 #deletePwd {
     font-family: Arial Black;
     color: #7F00FF;
@@ -206,6 +223,15 @@ label {
     left: 50%;
     width: 14%;
     bottom: 65%
+   }
+#reassign {
+    font-family: Arial Black;
+    color: #7F00FF;
+    font-size: 16px;
+    position: fixed;
+    left: 50%;
+    width: 14%;
+    bottom: 43%
    }
 #delete {
     font-family: Arial Black;
